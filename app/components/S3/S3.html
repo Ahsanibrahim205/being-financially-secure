@@ -1,0 +1,348 @@
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/x-icon;base64,">
+<title>Application Title</title>
+<link rel="stylesheet" href="app/styles/app-style.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Wellkom | Be Well - Perform Well - Live Well Longer</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="app/styles/newcss.css">
+<link rel="stylesheet" href="app/styles/bootstrap.min.css">
+<link rel="stylesheet" href="app/styles/bootstrap-theme.min.css">
+<link rel="stylesheet" href="app/styles/fontAwesome.css">
+<link rel="stylesheet" href="app/styles/light-box.css">
+<link rel="stylesheet" href="app/styles/owl-carousel.css">
+<link rel="stylesheet" href="app/styles/templatemo-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<div class="page-content">
+<section id="video" class="content-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h1>Develop a plan for <em>financial freedom</em></h1>
+                        </div>
+                        <div class="text-content">
+                            <div class="section-heading">
+                                <p>Do not procrastinate. To fail to plan is to plan to fail.</p></br></br>
+                            <ul>
+                            <li>Invest wisely. It is your money, your life, your choice, and your future.</li>
+                            <li>Help others on the journey to financial freedom. </li>
+                            <li>Be generous. Give something of your money and time back to the world</li>
+                            </ul>
+                            <div class="section-heading">
+                                <h1>What <em>actions?</em></h1>
+                            </div>
+                            <p>Which of the four steps to financial freedom are you going to focus on? <button  style="background-color: transparent;border:none;" id="newbtn1"><i class="fa fa-microphone" aria-hidden="true"></i></button></p>
+<div id="newc1" style="display:none">
+<table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+</table>
+</div>
+<form>
+<textarea  id="newtxt1" name="text" cols="100" rows="10" class="form-control"></textarea>
+</form>
+
+
+                            <p>Which single action to build your financial freedom can you take on a daily
+                                basis?<button  style="background-color: transparent;border:none;" id="newbtn2"><i class="fa fa-microphone" aria-hidden="true"></i></button></p>
+<div id="newc2" style="display:none">
+<table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+</table>
+</div>
+<form>
+<textarea  id="newtxt2" name="text" cols="100" rows="10" class="form-control"></textarea>
+</form>
+
+
+                            <p>What actions are you going to take this week? <button  style="background-color: transparent;border:none;" id="newbtn3"><i class="fa fa-microphone" aria-hidden="true"></i></button></p>
+<div id="newc3" style="display:none">
+<table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+</table>
+</div>
+<form>
+<textarea  id="newtxt3" name="text" cols="100" rows="10" class="form-control"></textarea>
+</form>
+                            <p> And next week? <button  style="background-color: transparent;border:none;" id="newbtn4"><i class="fa fa-microphone" aria-hidden="true"></i></button></p>
+<div id="newc4" style="display:none">
+<table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+</table>
+</div>
+<form>
+<textarea  id="newtxt4" name="text" cols="100" rows="10" class="form-control"></textarea>
+</form>
+                            </ul>         
+            </section>  
+</div>
+<script>
+
+    // status fields and start button in UI
+
+    var newtxt1,
+newtxt2,
+newtxt3,
+newtxt4;
+
+    var newbtn1,
+newbtn2,
+newbtn3,
+newbtn4;
+
+    // subscription key and region for speech services.
+    var subscriptionKey, serviceRegion, languageTargetOptions, languageSourceOptions;
+    var SpeechSDK;
+    var recognizerone;
+
+
+      newbtn1 = document.getElementById("newbtn1");
+newbtn2 = document.getElementById("newbtn2");
+newbtn3 = document.getElementById("newbtn3");
+newbtn4 = document.getElementById("newbtn4");
+
+      subscriptionKey = document.getElementById("subscriptionKey");
+      serviceRegion = document.getElementById("serviceRegion");
+
+
+      newtxt1 = document.getElementById("newtxt1");
+newtxt2 = document.getElementById("newtxt2");
+newtxt3 = document.getElementById("newtxt3");
+newtxt4 = document.getElementById("newtxt4");
+
+      newbtn1.addEventListener("click", function () {
+        newbtn1.disabled = true;
+        newbtn1.style.color="red";
+        newtxt1.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          newbtn1.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            newbtn1.disabled = false;
+            newbtn1.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            newtxt1.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            newbtn1.disabled = false;
+            newbtn1.style.color="black";
+            newtxt1.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+
+
+
+newbtn2.addEventListener("click", function () {
+        newbtn2.disabled = true;
+        newbtn2.style.color="red";
+        newtxt2.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          newbtn2.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            newbtn2.disabled = false;
+            newbtn2.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            newtxt2.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            newbtn2.disabled = false;
+            newbtn2.style.color="black";
+            newtxt2.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+
+
+
+newbtn3.addEventListener("click", function () {
+        newbtn3.disabled = true;
+        newbtn3.style.color="red";
+        newtxt3.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          newbtn3.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            newbtn3.disabled = false;
+            newbtn3.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            newtxt3.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            newbtn3.disabled = false;
+            newbtn3.style.color="black";
+            newtxt3.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+
+
+
+newbtn4.addEventListener("click", function () {
+        newbtn4.disabled = true;
+        newbtn4.style.color="red";
+        newtxt4.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          newbtn4.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            newbtn4.disabled = false;
+            newbtn4.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            newtxt4.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            newbtn4.disabled = false;
+            newbtn4.style.color="black";
+            newtxt4.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+
+
+
+
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+newbtn1.disabled=false;
+newbtn1.style.color="black";
+
+
+newbtn2.disabled=false;
+newbtn2.style.color="black";
+
+
+newbtn3.disabled=false;
+newbtn3.style.color="black";
+
+
+newbtn4.disabled=false;
+newbtn4.style.color="black";
+
+
+
+
+
+
+        document.getElementById('newc1').style.display = 'block';
+
+document.getElementById('newc2').style.display = 'block';
+
+document.getElementById('newc3').style.display = 'block';
+
+document.getElementById('newc4').style.display = 'block';
+
+
+
+        document.getElementById('warning').style.display = 'none';
+      }
+
+  </script>

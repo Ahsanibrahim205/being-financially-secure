@@ -1,0 +1,151 @@
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/x-icon;base64,">
+<title>Application Title</title>
+<link rel="stylesheet" href="app/styles/app-style.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Wellkom | Be Well - Perform Well - Live Well Longer</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="app/styles/newcss.css">
+<link rel="stylesheet" href="app/styles/bootstrap.min.css">
+<link rel="stylesheet" href="app/styles/bootstrap-theme.min.css">
+<link rel="stylesheet" href="app/styles/fontAwesome.css">
+<link rel="stylesheet" href="app/styles/light-box.css">
+<link rel="stylesheet" href="app/styles/owl-carousel.css">
+<link rel="stylesheet" href="app/styles/templatemo-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<div class="page-content">
+            <section id="contact" class="content-section">                
+                <div id="contact-content">
+                    <div class="section-heading">
+                        <h1>Additional<br><em>resources</em></h1>
+                    </div>
+                        <p>Related wellness techniques:</p>
+                        <ul>
+                            <li><a href="being-assertive.html">Being Assertive</a></li>
+                            <li><a href="goal-setting.html">Goal Setting</a></li>
+                            <li><a href="problem-solving.html">Problem Solving</a></li>
+                        </ul>
+                        <p>Literature</p>
+                        <ul>
+                            <li>“The Money Secret” by Rob Parsons (Hodder and Stoughton 2005)</li>
+                            <li>“Rich Dad, Poor Dad” by Robert Kiyosaki and Sharon Lechter (Warner
+                                Books 1999)</li>
+                            <li>Check out mortgage calculators at <a href="http://www.eloan.com">www.eloan.com.</a></li>
+                        </ul>
+                        <p>Sources of independent debt advice</p>
+                        <ul>
+                            <li><a href="http://www.adviceguide.org.uk">www.adviceguide.org.uk</a></li>
+                            <li><a href="http://www.cccs.co.uk">www.cccs.co.uk</a></li>
+                            <li><a href="http://www.creditaction.org.uk">www.creditaction.org.uk</a></li>
+                            <li><a href="http://www.nationaldebtline.co.uk">www.nationaldebtline.co.uk</a></li>
+                        </ul>
+                        <p>Add here any other resources you know of / come across: <button  style="background-color: transparent;border:none;" id="addibtn"><i class="fa fa-microphone" aria-hidden="true"></i></button></p>   
+                    <div class="section-content">
+                        <form id="contact" action="#" method="post">                                
+                                <div class="col-md-12">
+                                  <fieldset>
+                                    <div id="addicolumn" style="display:none">
+    <table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+      
+
+    </table>
+  </div>
+                            <form>
+                              <textarea  id="additxt" name="text" cols="100" rows="10" class="form-control" placeholder="Your message..." required></textarea>
+                            </form>
+                                  </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                  <!--<fieldset>
+                                    <button type="submit" id="form-submit" class="btn">Save Now!</button>
+                                  </fieldset>
+-->                                </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+</div>
+<script>
+
+    // status fields and start button in UI
+
+    var additxt;
+
+    var addibtn;
+
+    // subscription key and region for speech services.
+    var subscriptionKey, serviceRegion, languageTargetOptions, languageSourceOptions;
+    var SpeechSDK;
+    var recognizerone;
+
+
+      addibtn = document.getElementById("addibtn");
+      subscriptionKey = document.getElementById("subscriptionKey");
+      serviceRegion = document.getElementById("serviceRegion");
+
+
+      additxt = document.getElementById("additxt");
+      addibtn.addEventListener("click", function () {
+        addibtn.disabled = true;
+        addibtn.style.color="red";
+        additxt.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          addibtn.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            addibtn.disabled = false;
+            addibtn.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            additxt.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            addibtn.disabled = false;
+            addibtn.style.color="black";
+            additxt.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+        addibtn.disabled=false;
+        addibtn.style.color="black";
+        document.getElementById('addicolumn').style.display = 'block';
+        document.getElementById('warning').style.display = 'none';
+      }
+
+  </script>
